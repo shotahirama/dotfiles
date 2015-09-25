@@ -1,0 +1,14 @@
+alias robocup="cd $HOME/robocup/for2050/src"
+
+alias pf="cd $HOME/robocup/for2050/src/pyfiles"
+
+alias shutdown="sudo shutdown -h now"
+alias reboot="sudo reboot"
+
+alias ccd="cd;clear"
+
+alias sl="sl -e"
+
+alias la="ls -a"
+
+alias rmf="rm -rf"
