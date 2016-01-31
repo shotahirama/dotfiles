@@ -15,6 +15,10 @@ set wildmenu wildmode=list:full
 syntax on
 set cursorline
 
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,cp932,sjis,euc-jp
+
 set laststatus=2
 set statusline=%F%r%h%=
 highlight Normal ctermbg=none ctermfg=white
@@ -76,11 +80,11 @@ NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'osyo-manga/vim-reunions'
-NeoBundle 'osyo-manga/vim-marching', {
-            \ 'depends' : ['Shougo/vimproc.vim', 'osyo-manga/vim-reunions'],
-            \ 'autoload' : {'filetypes' : ['c', 'cpp']}
-            \ }
-NeoBundle 'Rip-Rip/clang_complete'
+"NeoBundle 'osyo-manga/vim-marching', {
+"            \ 'depends' : ['Shougo/vimproc.vim', 'osyo-manga/vim-reunions'],
+"            \ 'autoload' : {'filetypes' : ['c', 'cpp']}
+"            \ }
+" NeoBundle 'justmao945/vim-clang'
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
@@ -163,8 +167,17 @@ if has('lua')
 	" For perlomni.vim setting.
 	" https://github.com/c9s/perlomni.vim
 	let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-	let g:marching_enable_neocomplete = 1
+"	let g:marching_enable_neocomplete = 1
 
+"インクルードパスの指定
+" let g:neocomplcache_include_paths = {
+"  \ 'cpp'  : '.,/opt/local/include/gcc46/c++,/opt/local/include,/usr/include',
+"  \ 'c'    : '.,/usr/include',
+"  \ 'ruby' : '.,$HOME/.rvm/rubies/**/lib/ruby/1.8/',
+"  \ }
+"
+"
+set path+=/usr/include/c++/4.8
 
 else
 
@@ -203,48 +216,63 @@ else
 endif
 
 autocmd FileType python setlocal completeopt-=preview
-set path+=/usr/local/include
-set path+=/usr/include/c++/4.8
-set path+=/usr/include/c++/4.8.4
-set path+=/opt/ros/indigo/include
 
-" augroup cpp-path
-"   autocmd!
-"   autocmd FileType cpp setlocal path+=.,/usr/include,/usr/local/include,/usr/lib/c++/v1,/opt/ros/indigo/include,/usr/include/c++/4.8
-" augroup END
 
-" ------------------- clang_complete -------------
-"
-" neocomplcacheとの競合を避けるため、自動呼び出しはOff
-let g:neocomplcache_force_overwrite_completefunc=1
-let g:clang_complete_auto=0
-let g:clang_auto_select=0
-"libclangを使う
-let g:clang_use_library=1
-let g:clang_debug=1
-let g:clang_user_options = '-std=c++11'
-let g:clang_use_library_path='/usr/lib'
+if neobundle#is_installed('clang_complete')
+    "
+    " clang_complete
+  let g:clang_user_options = '-std=c++11'
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#force_omni_input_patterns.c =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  let g:neocomplete#force_omni_input_patterns.cpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+  let g:neocomplete#force_omni_input_patterns.objc =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  let g:neocomplete#force_omni_input_patterns.objcpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
+  " clang_complete では自動補完を行わない用に設定
+  let g:clang_complete_auto = 1
+  let g:clang_auto_select = 0
+  let g:clang_snippets = 0
+  let g:clang_close_preview = 1
+
+  " ------------------- clang_complete -------------
+  "
+  " neocomplcacheとの競合を避けるため、自動呼び出しはOff
+  let g:neocomplcache_force_overwrite_completefunc=1
+  "libclangを使う
+  let g:clang_use_library=1
+  let g:clang_debug=1
+  let g:clang_user_options = '-std=c++11'
+  let g:clang_use_library_path='/usr/lib'
+
+  if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+  endif
+  let g:neocomplcache_force_overwrite_completefunc = 1
+  let g:neocomplcache_force_omni_patterns.c =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_force_omni_patterns.cpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+  let g:neocomplcache_force_omni_patterns.objc =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplcache_force_omni_patterns.objcpp =
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+  "let g:clang_use_library = 1
+  "
+  "
 endif
-let g:neocomplcache_force_overwrite_completefunc = 1
-let g:neocomplcache_force_omni_patterns.c =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.objc =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.objcpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:clang_use_library = 1
-"
 "--------------------------------------------
 " jedi-vim Setting
 "
 autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_enabled = 1
+let g:jedi#auto_vim_configuration = 1
 if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
@@ -319,3 +347,19 @@ smap <expr><nul> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" vim-clang
+let g:clang_c_options = '-std=gnu11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+let g:clang_auto = 1
+
+
+augroup cpp-clangformat
+  autocmd!
+  autocmd FileType c,cpp,objc noremap <C-K> :pyf /path/to/clang-format.py<CR>
+augroup END
+
+augroup cpp-path
+  autocmd!
+  autocmd FileType cpp setlocal path+=.,/usr/include/c++/4.8.4,/usr/local/include,/opt/ros/indigo/include
+augroup END
