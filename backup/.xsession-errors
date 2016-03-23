@@ -1,0 +1,7 @@
+init: update-notifier-crash (/var/crash/_usr_sbin_NetworkManager.0.crash) main プロセス (1825) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/susres.2016-03-23_20:18:21.443749.crash) main プロセス (1828) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/_usr_sbin_cron.0.crash) main プロセス (1826) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/_usr_lib_x86_64-linux-gnu_indicator-sound_indicator-sound-service.112.crash) main プロセス (1824) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/libgl1-mesa-dri.0.crash) main プロセス (1827) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/swig2.0.0.crash) main プロセス (1829) はステータス 1 で終了しました
+init: hud main プロセス (1971) はステータス 127 で終了しました

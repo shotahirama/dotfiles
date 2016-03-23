@@ -1,0 +1,9 @@
+[user]
+	email = vghjjj@gmail.com
+	name = shotahirama
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+[color]
+	diff = auto
+	status = auto
+	branch = auto

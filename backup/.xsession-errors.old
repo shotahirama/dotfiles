@@ -1,0 +1,17 @@
+init: update-notifier-crash (/var/crash/libgl1-mesa-dri.0.crash) main プロセス (1663) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/_usr_sbin_cron.0.crash) main プロセス (1662) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/_usr_sbin_NetworkManager.0.crash) main プロセス (1661) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/susres.2016-03-23_20:18:21.443749.crash) main プロセス (1664) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/_usr_lib_x86_64-linux-gnu_indicator-sound_indicator-sound-service.112.crash) main プロセス (1660) はステータス 1 で終了しました
+init: update-notifier-crash (/var/crash/swig2.0.0.crash) main プロセス (1665) はステータス 1 で終了しました
+init: hud main プロセス (1810) はステータス 127 で終了しました
+init: gnome-session (Unity) main プロセス (1821) はステータス 1 で終了しました
+init: unity-panel-service main プロセス (1851) はステータス 1 で終了しました
+init: mediascanner-2.0 main プロセス (1624) はステータス 99 で終了しました
+init: unity-settings-daemon main プロセス (1804) はステータス 1 で終了しました
+init: indicator-power プロセス main (2082) はシグナル TERM でkillされました
+init: indicator-datetime プロセス main (2084) はシグナル TERM でkillされました
+init: indicator-printers main プロセス (2092) はステータス 1 で終了しました
+init: indicator-session プロセス main (2097) はシグナル TERM でkillされました
+init: indicator-application プロセス main (2114) はシグナル TERM でkillされました
+init: Disconnected from notified D-Bus bus
